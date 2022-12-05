@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- MyBatis核心配置文件中的标签必须按照顺序
+(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,
+reflectorFactory?,plugins?,environments?,databaseIdProvider?,mappers?) -->
+
+    <!-- 引入properties文件,然后就可以在当前文件中通过的方式获取value -->
+    <!-- <properties resource="jdbc.properties"/> -->
+
+    <!-- 全局配置 -->
+    <settings>
+        <!-- 当字段名和属性名不一致时,将字段中的下划线映射为驼峰 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--
+     typeAliases:设置类型别名,为某个具体的类型设置一个别名,
+     在MyBatis的范围内,就可以使用别名表示一个具体的类型,比如在UserMapper中的selectAllUser就使用了下面声明的别名
+     -->
+    <!-- <typeAliases>
+        <package name="com.beanoung.crm.commons.pojo"/>
+        <package name="com.beanoung.crm.settings.pojo"/>
+        <package name="com.beanoung.crm.workbench.pojo"/>
+    </typeAliases> -->
+
+    <!--
+    environments:配置连接数据库的环境
+    default:设置为要使用的环境的id
+    -->
+    <!-- <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments> -->
+
+    <!-- 引入mybatis的映射文件 -->
+    <!-- <mappers>
+        <package name="com.beanoung.crm.settings.mapper"/>
+    </mappers> -->
+</configuration>

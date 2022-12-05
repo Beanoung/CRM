@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 扫描 -->
+    <!-- settings -->
+    <context:component-scan base-package="com.beanoung.crm.settings.service"/>
+    <context:component-scan base-package="com.beanoung.crm.settings.mapper"/>
+    <!-- workbench -->
+    <!-- <context:component-scan base-package="com.beanoung.crm.workbench.mapper"/> --><!-- mapper没有用类而是xml,因此用最下面的扫描方法 -->
+    <context:component-scan base-package="com.beanoung.crm.workbench.service"/>
+
+    <!-- 引入外部文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!-- 事务 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 开启事务注解驱动 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 整合MyBatis -->
+
+    <!-- 配置sqlSessionFactoryBean -->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.beanoung.crm.settings.pojo,
+                                                   com.beanoung.crm.workbench.pojo,
+                                                   com.beanoung.crm.commons.pojo
+                                                   "/>
+    </bean>
+
+    <!-- 通过sqlSessionFactory创建mapper接口对应的代理实现类对象,交给IOC管理 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.beanoung.crm.settings.mapper,
+                                            com.beanoung.crm.workbench.mapper"/>
+    </bean>
+
+</beans>
