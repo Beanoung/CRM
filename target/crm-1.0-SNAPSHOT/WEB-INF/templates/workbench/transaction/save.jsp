@@ -21,7 +21,6 @@
             $(function () {
                 $("#create-transactionStage").change(function () {
                     var stageValue = $("#create-transactionStage option:selected").text();
-                    alert(stageValue);
                     if (stageValue == "") {
                         //清空可能性输入框
                         $("#create-possibility").val("");

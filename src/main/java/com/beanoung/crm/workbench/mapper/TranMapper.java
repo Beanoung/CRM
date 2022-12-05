@@ -1,5 +1,6 @@
 package com.beanoung.crm.workbench.mapper;
 
+import com.beanoung.crm.workbench.pojo.FunnelVO;
 import com.beanoung.crm.workbench.pojo.Tran;
 import com.beanoung.crm.workbench.pojo.TranExample;
 import java.util.List;
@@ -105,4 +106,9 @@ public interface TranMapper {
      * 根据条件查交易并分页
      */
     List<Tran> selectTranByConditionForPage(Map<String,Object> map);
+
+    /**
+     * 查询交易表中各个阶段的数据量
+     */
+    List<FunnelVO> selectCountOfTranGroupByStage();
 }

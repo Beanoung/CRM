@@ -509,5 +509,11 @@
         from tbl_tran
     </select>
 
-
+    <!-- selectCountOfTranGroupByStage -->
+    <select id="selectCountOfTranGroupByStage" resultType="com.beanoung.crm.workbench.pojo.FunnelVO">
+        select count(*) as value, dv.value as name
+        from tbl_tran t
+                 join tbl_dic_value dv on t.stage = dv.id
+        group by t.stage
+    </select>
 </mapper>
